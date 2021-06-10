@@ -1,16 +1,24 @@
+
 import telebot
 from config import keys, TOKEN
 from extencion import APIException, CryptoConverter
 
 bot = telebot.TeleBot(TOKEN)
 
-@bot.message_handler(commands=['start', 'help'])
-def help(message: telebot.types.Message):
-    text = 'Что бы начать работу введите команду боту в следующем формате:\n <Имя валюты> \
-<в какую валюту перевести> \
-<количество переводимой валюты>\nУвидеть список доступных валют: /values'
+@bot.message_handler(commands=['start'])
+def start(message: telebot.types.Message):
+    text = 'Привет, я телеграмм бот конвертации валюты.\nЧто бы начать работу введите команду боту в следующем формате:\n <Имя валюты c заглавной буквы> \
+< Через пробел имя валюты в которую необходимо конвертировать> \
+<Через пробел количество переводимой валюты>\nУвидеть список доступных валют: /values \
+\nДля повторного вызова справки: /help'
     bot.reply_to(message, text)
 
+@bot.message_handler(commands=['help'])
+def help(message: telebot.types.Message):
+    text = 'Что бы начать работу введите команду боту в следующем формате:\n <Имя валюты c заглавной буквы> \
+< Через пробел имя валюты в которую необходимо конвертировать> \
+<Через пробел количество переводимой валюты>\nУвидеть список доступных валют: /values'
+    bot.reply_to(message, text)
 
 @bot.message_handler(commands=['values'])
 def values(message: telebot.types.Message):
